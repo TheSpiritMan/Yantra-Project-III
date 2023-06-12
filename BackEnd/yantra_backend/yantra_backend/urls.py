@@ -4,11 +4,15 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from User.views import UserRegistrationAPIView, OTPVerificationAPIView, ResendOTPVerificationAPIView
+from User.views import CustomUserRegistrationAPIView, OTPVerificationAPIView, ResendOTPVerificationAPIView, CustomUserLoginAPIView, ResetPasswordAPIView
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('register', UserRegistrationAPIView.as_view()),
-    path('verify-otp', OTPVerificationAPIView.as_view()),
-    path('resend-otp', ResendOTPVerificationAPIView.as_view())
+    path('register', CustomUserRegistrationAPIView.as_view(), name='register'),
+    path('verify-otp', OTPVerificationAPIView.as_view(), name='verify-otp'),
+    path('resend-otp', ResendOTPVerificationAPIView.as_view(), name='resend-otp'),
+    path('login', CustomUserLoginAPIView.as_view(), name='login'),
+    path('forgot-pass', ResendOTPVerificationAPIView.as_view(), name='forgot-pass'),
+    path('reset-pass', ResetPasswordAPIView.as_view(), name='reset-pass'),
+
 ]

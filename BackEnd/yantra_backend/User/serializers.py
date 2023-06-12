@@ -6,7 +6,7 @@ from random import randint
 from django.core.mail import send_mail
 from django.conf import settings
 
-class CustomUserSerializer(serializers.ModelSerializer):
+class CustomUserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
@@ -38,8 +38,17 @@ def generate_otp(user):
     user.save()    
 
 class OTPVerificationSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.EmailField(required=True)
     otp = serializers.CharField(min_length=6, max_length=6)
 
 class OTPRegenerateSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.EmailField(required=True)
+
+class CustomUserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(trim_whitespace=False)
+
+class PasswordResetSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    otp = serializers.CharField(min_length=6, max_length=6)
+    new_password = serializers.CharField(required=True)
