@@ -1,5 +1,7 @@
 from django.urls import reverse
 from django.http import HttpResponse
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 class JWTMiddleware:
     EXEMPT_URLS = [
@@ -16,10 +18,18 @@ class JWTMiddleware:
 
     def __call__(self, request):
         try:
-            if not request.user.is_authenticated and request.path not in self.EXEMPT_URLS:
-                # Return unauthorized response if the user is not authenticated and the URL is not exempted
-                return HttpResponse('Unauthorized', status=401)
-
+            if request.path not in self.EXEMPT_URLS:
+                auth_header = request.headers.get('HTTP_AUTHORIZATION', '')
+                print(auth_header)
+                if auth_header.startswith('Bearer '):
+                    token = auth_header.split(' ',1)[1]
+                    print(token)
+                    jwt_authentication = JWTAuthentication()
+                    request.user, _ = jwt_authentication.authenticate_credentials(token)
+                    print(request.user)
+                    if not request.user.is_authenticated:
+                        # Return unauthorized response if the user is not authenticated
+                        return HttpResponse('Unauthorized', status=401)
             response = self.get_response(request)
             return response
         except Exception as e:

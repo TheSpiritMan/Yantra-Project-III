@@ -33,11 +33,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
-# CORS_ORIGIN_WHITELIST = [
-#     '*',
-# ]
-
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -49,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'User',
+    'File',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -67,9 +65,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'User.middleware.JWTMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'User.middleware.JWTMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'yantra_backend.urls'
