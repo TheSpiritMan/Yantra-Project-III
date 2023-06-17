@@ -12,6 +12,7 @@ class File(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user_id = models.UUIDField()
     csv_file = models.FileField(upload_to='csv_files/', validators=[validate_csv_file])
+    result_file = models.FileField(upload_to='result_files/', validators=[validate_csv_file], null = True)
 
     class Meta:
         db_table = 'user_file'

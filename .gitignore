@@ -12,6 +12,8 @@ media
 
 /file uploads
 **csv_files**
+**result_files**
+
 # If you are using PyCharm # 
 # User-specific stuff
 .idea/**/workspace.xml
