@@ -72,8 +72,6 @@ class CustomUserLoginAPIView(APIView):
 
             if user:
                 if user.is_verified:
-                    # return Response({'message': 'Login successful'})
-                  
                     refresh = RefreshToken.for_user(user)
                     return Response({
                         'message': 'Login successful',

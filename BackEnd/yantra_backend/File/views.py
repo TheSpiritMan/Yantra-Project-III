@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import FileResponse
 from .models import File
 from .serializers import FileSerializer
 from .serializers import predict_class
@@ -54,3 +55,33 @@ class FileUploadAPIView(APIView):
         except Exception as e:
             return Response({'message': str(e)}, status=500)
 
+
+class UserFileListAPIView(APIView):
+    def get(self, request):
+        user_id = request.user.id
+        
+        files = File.objects.filter(user_id=user_id)
+        serializer = FileSerializer(files, many=True)
+
+        return Response(serializer.data)
+
+class FileDownloadAPIView(APIView):
+    def get(self, request, file_id):
+        try:
+            file_obj = File.objects.get(id=file_id, user_id=request.user.id)
+            file_path = file_obj.result_file.path
+            return FileResponse(open(file_path, 'rb'), as_attachment=True)
+        except File.DoesNotExist:
+            return Response({'message': 'File Not Found'}, status=400)
+
+class FileDeleteAPIView(APIView):
+    def get(self, request, file_id):
+        try:
+            file_obj = File.objects.get(id=file_id, user_id=request.user.id)
+            if file_obj.delete():
+                return Response({'message': 'File deleted successfully'}, status=204)
+            return Response({'message': 'File Not Found'}, status=404)
+        except File.DoesNotExist:
+            return Response({'message': 'File Not Found'}, status=404)
+        except Exception as e:
+            return Response({'message': 'Something is Wrong'}, status=500)
