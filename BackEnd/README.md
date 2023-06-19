@@ -19,13 +19,14 @@
 ## Run Project
 - Make Migrations
     ```
-    python manage.py makemigrations User 
+    python manage.py makemigrations User File
+    python manage.py migrate
     python manage.py runserver
     ```
 
 
 ## To Test API
-- [Post Method]: `/register`: User Registration
+- <b>Post Method</b>: `/register`: User Registration
     ```
     {
     "username": "",
@@ -34,21 +35,21 @@
     }
     ```
 
-- [Post Method]: `/verify-otp`: OTP Verification
+- <b>Post Method</b>: `/verify-otp`: OTP Verification
     ```
     {
     "email": "",
     "otp": ""
     }
     ```
-- [Post Method]: `/resend-otp`: Resend OTP if it expires
+- <b>Post Method</b>: `/resend-otp`: Resend OTP if it expires
     ```
     {
     "email": ""
     }
     ```
 
-- [Post Method]: `/login`: Login User
+- <b>Post Method</b>: `/login`: Login User
     ```
     {
     "username": "",
@@ -63,13 +64,13 @@
     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg2NTk4NDY4LCJpYXQiOjE2ODY1OTc1NjgsImp0aSI6IjQwZGNjMWVkYzE3MzRiMjE5NWJiNzljZmRiYjg3ZWY0IiwidXNlcl9pZCI6IjEwM2RmMjc5LTI3NTMtNGEyNS1hOTFhLWY1MWIwMWViZjM3ZCJ9.CYynTtIlx6nnLFYQbOIhBsg-l2jpQazRcOjglN-Rwl0"
     }
     ```
-- [Post Method]: `/forgot-pass`: Send OTP for resetting password
+- <b>Post Method</b>: `/forgot-pass`: Send OTP for resetting password
     ```
     {
     "email": ""
     }
     ```
-- [Post Method]: `/reset-pass`: Reset Password
+- <b>Post Method</b>: `/reset-pass`: Reset Password
     ```
     {
     "email": "",
@@ -77,5 +78,62 @@
     "new_password": ""
     }
     ```
-
 <b>NOTE: </b> Now other endpoint needs JWT token to authenticate.
+
+>To Pass JWT Header: `Authorization:  Bearer <access_token>`
+
+- <b>Post Method</b>: `/logout`: For Logging Out
+    ```
+    {
+    "refresh": "<refresh_token>"
+    }
+    ```
+
+- <b>Post Method</b>: `/upload-file`: To Upload CSV File
+    ```
+    {
+    "csv_file": "<csv_file>"
+    }
+    ```
+    >Respone on Success:
+    ```
+    {
+    "message": "File Uploaded Successfully",
+    "File ID": "0d5ec8b6-8fe4-4da4-9c08-bd1dbe876e4a",
+    "counts": {
+        "0": 369,
+        "1": 337
+        }
+    }
+    ```
+
+- <b>Get Method</b>: `/getAllFiles`: To List All the File User has Uploaded
+    ```
+    [
+        {
+            "id": "d64d5038-071c-4252-ae06-a90605ca6ac7",
+            "csv_file": "/csv_files/demo_1x1o1ft.csv",
+            "result_file": "/result_files/result_d64d5038-071c-4252-ae06-a90605ca6ac7.csv"
+        },
+        {
+            "id": "b949d05f-ff5f-4f90-9e89-f75075f078eb",
+            "csv_file": "/csv_files/demo_JjEQxpk.csv",
+            "result_file": "/result_files/result_b949d05f-ff5f-4f90-9e89-f75075f078eb.csv"
+        },
+        {
+            "id": "0d5ec8b6-8fe4-4da4-9c08-bd1dbe876e4a",
+            "csv_file": "/csv_files/demo_BLuUOMV.csv",
+            "result_file": "/result_files/result_0d5ec8b6-8fe4-4da4-9c08-bd1dbe876e4a.csv"
+        }
+    ]
+    ```
+
+- <b>Get Method</b>: `/download/<File.id>`: To Download Result File
+    ```
+    Eg: /download/0d5ec8b6-8fe4-4da4-9c08-bd1dbe876e4a
+    ```
+
+- <b>Get Method</b>: `/delete/<File.id>`: To delete File 
+    ```
+    Eg: /delete/0d5ec8b6-8fe4-4da4-9c08-bd1dbe876e4a
+    ```
