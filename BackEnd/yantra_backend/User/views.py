@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from .models import CustomUser
 from .serializers import CustomUserRegistrationSerializer, OTPVerificationSerializer, OTPRegenerateSerializer, send_otp_verification_mail, generate_otp, CustomUserLoginSerializer, PasswordResetSerializer, ChangePasswordSerializer
 from django.contrib.auth import authenticate
-# from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import CustomUser
 

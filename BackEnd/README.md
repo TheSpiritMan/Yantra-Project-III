@@ -137,3 +137,21 @@
     ```
     Eg: /delete/0d5ec8b6-8fe4-4da4-9c08-bd1dbe876e4a
     ```
+
+- <b>Post Method</b>: `/change-pass`: To change Password inside dashboard 
+    ```
+    {
+        "new_password": "password"
+    }
+    ```
+
+- <b>Get Method</b>: `/me`: To Get User Details 
+    >Respone on Success:
+    ```
+    {
+    "id": "dbc70a09-3e4e-4ba8-b6cc-e6ec0f417021",
+    "first_name": "",
+    "last_name": "",
+    "email": ""
+    }
+    ```
