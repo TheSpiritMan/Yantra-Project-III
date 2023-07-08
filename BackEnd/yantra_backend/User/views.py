@@ -14,10 +14,10 @@ class CustomUserRegistrationAPIView(APIView):
             if serializer.is_valid():
                 user = serializer.save()  
                 send_otp_verification_mail(user.email, user.otp_num)
-                return Response({'message': 'User registered successfully\n Check your email for OTP Verification'})
-            return Response(serializer.errors, status=400)
+                return Response({'message': 'User registered successfully. Check your email for OTP Verification'}, status=200)
+            return Response(serializer.errors, status=201)
         except Exception as e:
-            return Response({'message': str(e)}, status=400)
+            return Response({'message': str(e)}, status=201)
 
 
 class OTPVerificationAPIView(APIView):
@@ -37,13 +37,13 @@ class OTPVerificationAPIView(APIView):
                     user.save()
                     return Response({'message': 'OTP verification successful'})
                 else:
-                    return Response({'message': 'OTP has expired'}, status=400)
+                    return Response({'message': 'OTP has expired'}, status=201)
             else:
                 return Response({'message': 'Invalid OTP'})
         except CustomUser.DoesNotExist:
-            return Response({'message': 'User not found'}, status=400)
+            return Response({'message': 'User not found'}, status=201)
         except Exception as e:
-            return Response({'message': str(e)}, status=400)
+            return Response({'message': str(e)}, status=201)
 
 
 class ResendOTPVerificationAPIView(APIView):
@@ -58,7 +58,7 @@ class ResendOTPVerificationAPIView(APIView):
             send_otp_verification_mail(user.email, user.otp_num)
             return Response({'message': 'OTP Send successful'})
         except Exception as e:
-            return Response({'message': str(e)}, status=400)
+            return Response({'message': str(e)}, status=201)
 
 class CustomUserLoginAPIView(APIView):
     def post(self, request):
@@ -81,9 +81,9 @@ class CustomUserLoginAPIView(APIView):
                         'access': str(refresh.access_token),
                     })
                 else:
-                    return Response({'message': 'User Not Verified'}, status=400)
+                    return Response({'message': 'User Not Verified'}, status=201)
             else:
-                return Response({'message': 'Invalid username or password'}, status=400)
+                return Response({'message': 'Invalid username or password'}, status=201)
         except Exception as e:
             return Response({'message': str(e)}, status=500)
 
@@ -105,13 +105,13 @@ class ResetPasswordAPIView(APIView):
                     user.save()
                     return Response({'message': 'Password Changed Successfully'})
                 else:
-                    return Response({'message': 'OTP has expired'}, status=400)
+                    return Response({'message': 'OTP has expired'}, status=201)
             else:
                 return Response({'message': 'Invalid OTP'})
         except CustomUser.DoesNotExist:
-            return Response({'message': 'User not found'}, status=400)
+            return Response({'message': 'User not found'}, status=201)
         except Exception as e:
-            return Response({'message': str(e)}, status=400)
+            return Response({'message': str(e)}, status=201)
 
 
 class CustomUserDetailsAPIView(APIView):
@@ -142,6 +142,6 @@ class CustomUserChangePasswordAPIView(APIView):
                 user.save()
                 return Response({'message': 'Password changed successfully'})
             else:
-                return Response({'error': 'Invalid or missing password'}, status=400)
+                return Response({'error': 'Invalid or missing password'}, status=201)
         except Exception as e:
-            return Response({'message': str(e)}, status=400)
+            return Response({'message': str(e)}, status=201)

@@ -72,7 +72,7 @@ class FileDownloadAPIView(APIView):
             file_path = file_obj.result_file.path
             return FileResponse(open(file_path, 'rb'), as_attachment=True)
         except File.DoesNotExist:
-            return Response({'message': 'File Not Found'}, status=400)
+            return Response({'message': 'File Not Found'}, status=201)
 
 class FileDeleteAPIView(APIView):
     def get(self, request, file_id):
