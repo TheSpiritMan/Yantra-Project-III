@@ -50,7 +50,7 @@ class FileUploadAPIView(APIView):
                     'File ID': _file.id,
                     'counts': class_counts
                 }
-                return Response(response_data,status=201)
+                return Response(response_data,status=200)
             return Response(serializer.errors, status=201)
         except Exception as e:
             return Response({'message': str(e)}, status=500)
@@ -79,9 +79,9 @@ class FileDeleteAPIView(APIView):
         try:
             file_obj = File.objects.get(id=file_id, user_id=request.user.id)
             if file_obj.delete():
-                return Response({'message': 'File deleted successfully'}, status=204)
-            return Response({'message': 'File Not Found'}, status=404)
+                return Response({'message': 'File deleted successfully'}, status=200)
+            return Response({'message': 'File Not Found'}, status=201)
         except File.DoesNotExist:
-            return Response({'message': 'File Not Found'}, status=404)
+            return Response({'message': 'File Not Found'}, status=201)
         except Exception as e:
             return Response({'message': 'Something is Wrong'}, status=500)
