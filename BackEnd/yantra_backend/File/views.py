@@ -51,7 +51,7 @@ class FileUploadAPIView(APIView):
                     'counts': class_counts
                 }
                 return Response(response_data,status=201)
-            return Response(serializer.errors, status=400)
+            return Response(serializer.errors, status=201)
         except Exception as e:
             return Response({'message': str(e)}, status=500)
 

@@ -19,7 +19,9 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    username = models.CharField(max_length=150, unique=True)
+    first_name = models.CharField(max_length=15, null=False)
+    last_name = models.CharField(max_length=25, null=False)
+    username = models.CharField(max_length=25, unique=True)
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

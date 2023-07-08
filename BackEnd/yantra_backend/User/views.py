@@ -4,6 +4,8 @@ from .models import CustomUser
 from .serializers import CustomUserRegistrationSerializer, OTPVerificationSerializer, OTPRegenerateSerializer, send_otp_verification_mail, generate_otp, CustomUserLoginSerializer, PasswordResetSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import CustomUser
+
 
 class CustomUserRegistrationAPIView(APIView):
     def post(self, request):
@@ -110,3 +112,18 @@ class ResetPasswordAPIView(APIView):
             return Response({'message': 'User not found'}, status=400)
         except Exception as e:
             return Response({'message': str(e)}, status=400)
+
+
+class CustomUserDetailsAPIView(APIView):
+    def get(self, request):
+        try:
+            user = CustomUser.objects.get(id=request.user.id)
+            user_data = {
+                'id': user.id,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email
+            }
+            return Response(user_data)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status+201)

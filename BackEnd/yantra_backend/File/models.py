@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 import magic
 from django.core.exceptions import ValidationError
+from django.utils.timezone import now
 
 def validate_csv_file(value):
     file_mime = magic.from_buffer(value.read(), mime=True)
@@ -13,7 +14,8 @@ class File(models.Model):
     user_id = models.UUIDField()
     csv_file = models.FileField(upload_to='csv_files/', validators=[validate_csv_file])
     result_file = models.FileField(upload_to='result_files/', validators=[validate_csv_file], null = True)
-
+    date = models.DateTimeField(default=now, editable=False)
+    
     class Meta:
         db_table = 'user_file'
 
