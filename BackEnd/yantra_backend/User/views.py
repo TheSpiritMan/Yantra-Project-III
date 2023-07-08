@@ -1,8 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import CustomUser
-from .serializers import CustomUserRegistrationSerializer, OTPVerificationSerializer, OTPRegenerateSerializer, send_otp_verification_mail, generate_otp, CustomUserLoginSerializer, PasswordResetSerializer
+from .serializers import CustomUserRegistrationSerializer, OTPVerificationSerializer, OTPRegenerateSerializer, send_otp_verification_mail, generate_otp, CustomUserLoginSerializer, PasswordResetSerializer, ChangePasswordSerializer
 from django.contrib.auth import authenticate
+# from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import CustomUser
 
@@ -127,3 +128,21 @@ class CustomUserDetailsAPIView(APIView):
             return Response(user_data)
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=201)
+
+class CustomUserChangePasswordAPIView(APIView):
+    def post(self, request):
+        try:
+            serializer = ChangePasswordSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = CustomUser.objects.get(id=request.user.id)
+            new_password = serializer.validated_data['new_password']
+
+            # Validate and update the password
+            if new_password:
+                user.set_password(new_password)
+                user.save()
+                return Response({'message': 'Password changed successfully'})
+            else:
+                return Response({'error': 'Invalid or missing password'}, status=400)
+        except Exception as e:
+            return Response({'message': str(e)}, status=400)

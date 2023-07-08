@@ -4,7 +4,7 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from User.views import CustomUserRegistrationAPIView, OTPVerificationAPIView, ResendOTPVerificationAPIView, CustomUserLoginAPIView, ResetPasswordAPIView, CustomUserDetailsAPIView
+from User.views import CustomUserRegistrationAPIView, OTPVerificationAPIView, ResendOTPVerificationAPIView, CustomUserLoginAPIView, ResetPasswordAPIView, CustomUserDetailsAPIView, CustomUserChangePasswordAPIView
 from File.views import FileUploadAPIView, UserFileListAPIView, FileDownloadAPIView, FileDeleteAPIView
 from rest_framework_simplejwt.views import TokenBlacklistView
 
@@ -22,5 +22,5 @@ urlpatterns = [
     path('download/<uuid:file_id>/', FileDownloadAPIView.as_view(),name='download-result-file'),
     path('delete/<uuid:file_id>/', FileDeleteAPIView.as_view(),name='delete-file'),
     path('me', CustomUserDetailsAPIView.as_view(), name='me'),
-
+    path('change-pass', CustomUserChangePasswordAPIView.as_view(), name='change-pass'),
 ]
