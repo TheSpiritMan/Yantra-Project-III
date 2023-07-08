@@ -126,4 +126,4 @@ class CustomUserDetailsAPIView(APIView):
             }
             return Response(user_data)
         except User.DoesNotExist:
-            return Response({'error': 'User not found'}, status+201)
+            return Response({'error': 'User not found'}, status=201)
