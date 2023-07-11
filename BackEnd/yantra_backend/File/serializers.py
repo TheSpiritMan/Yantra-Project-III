@@ -9,7 +9,7 @@ import numpy as np
 class FileSerializer(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = ['id', 'csv_file', 'result_file']
+        fields = ['id','date', 'csv_file', 'result_file']
         read_only_fields = ['id']
 
 

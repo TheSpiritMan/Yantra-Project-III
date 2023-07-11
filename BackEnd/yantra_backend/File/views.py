@@ -48,6 +48,7 @@ class FileUploadAPIView(APIView):
                 response_data = {
                     'message': 'File Uploaded Successfully',
                     'File ID': _file.id,
+                    'date': _file.date,
                     'counts': class_counts
                 }
                 return Response(response_data,status=200)
