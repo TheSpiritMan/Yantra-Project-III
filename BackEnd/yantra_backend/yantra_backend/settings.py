@@ -162,8 +162,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Gmail password
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')  # Default email address to use for sending emails
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': False,

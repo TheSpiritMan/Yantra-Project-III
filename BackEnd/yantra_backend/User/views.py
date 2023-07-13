@@ -58,7 +58,7 @@ class ResendOTPVerificationAPIView(APIView):
             send_otp_verification_mail(user.email, user.otp_num)
             return Response({'message': 'OTP Send successful'}, status=200)
         except Exception as e:
-            return Response({'message': str(e)}, status=201)
+            return Response({'message': 'Email Not Exist'}, status=201)
 
 class CustomUserLoginAPIView(APIView):
     def post(self, request):
