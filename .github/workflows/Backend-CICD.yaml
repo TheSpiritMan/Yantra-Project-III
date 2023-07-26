@@ -11,13 +11,15 @@ env:
   CI: false
   env_backend: ${{secrets.ENV_BACKEND}}
 
+defaults:
+  run:
+    working-directory: BackEnd
+
 jobs:
   build:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: BackEnd
+    
 
     steps:
       - name: checkout backend branch
@@ -38,7 +40,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: build and push crop-ms
+      - name: build and push 
         uses: docker/build-push-action@v4
         if: github.event_name == 'push'
         with:
