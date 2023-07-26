@@ -6,4 +6,4 @@ RUN pnpm install
 COPY . ./
 RUN pnpm build
 EXPOSE 4173
-CMD ["pnpm", "preview"]
+CMD ["pnpm", "preview", "--host"]
