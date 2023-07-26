@@ -2,14 +2,14 @@ name: Docker CICD
 on:
   push:
     branches:
-      - backend
+      - main
   pull_request:
     branches:
-      - backend
+      - main
 
 env:
   CI: false
-  env_backend: ${{secrets.ENV_BACKEND}}
+  env_main: ${{secrets.ENV_main}}
 
 defaults:
   run:
@@ -22,14 +22,14 @@ jobs:
     
 
     steps:
-      - name: checkout backend branch
+      - name: checkout main branch
         uses: actions/checkout@v3
         with:
-          ref: backend
+          ref: main
 
       - name: create environment file
         run: |
-          touch ./.env && echo "$env_backend" >> ./.env
+          touch ./.env && echo "$env_main" >> ./.env
 
       - name: setup docker buildx
         uses: docker/setup-buildx-action@v2
@@ -46,8 +46,8 @@ jobs:
         with:
           context: ./BackEnd
           file: ./BackEnd/Dockerfile
-          push: false
-          tags: thespiritman/yantra-backend:backend
+          push: true
+          tags: thespiritman/yantra-backend:main
 
       - name: Build Docker image
         if: github.event_name == 'pull_request'
