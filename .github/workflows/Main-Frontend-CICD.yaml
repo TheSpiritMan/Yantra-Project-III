@@ -41,7 +41,7 @@ jobs:
         with:
           context: ./FrontEnd
           file: ./FrontEnd/Dockerfile
-          push: false
+          push: true
           tags: thespiritman/yantra-frontend:main
 
       - name: Build Docker image
