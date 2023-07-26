@@ -44,4 +44,4 @@ jobs:
 
       - name: Build Docker image
         # if: github.event_name == 'pull_request'
-        run: docker build -t myimage:${{ github.sha }} -f ./Dockerfile .
+        run: pwd; ls; docker build -t myimage:${{ github.sha }} -f ./Dockerfile .
