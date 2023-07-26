@@ -43,5 +43,5 @@ jobs:
       #     tags: thespiritman/yantra-backend:stage
 
       - name: Build Docker image
-        if: github.event_name == 'pull_request'
+        # if: github.event_name == 'pull_request'
         run: docker build -t myimage:${{ github.sha }} -f ./Dockerfile .
