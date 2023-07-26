@@ -24,6 +24,10 @@ jobs:
         with:
           ref: backend
 
+      - name: pwd
+        run: |
+          pwd; ls
+
       - name: setup docker buildx
         uses: docker/setup-buildx-action@v2
 
