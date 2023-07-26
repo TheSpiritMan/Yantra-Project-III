@@ -4,7 +4,7 @@ import { getUserToken } from "./storage";
 import { goto } from "$app/navigation";
 
 const axiosInstance = axios.create({
-	baseURL: "http://127.0.0.1:8000",
+	baseURL: "https://yantra-api.sandabgc.com.np",
 });
 
 axiosInstance.interceptors.request.use(
