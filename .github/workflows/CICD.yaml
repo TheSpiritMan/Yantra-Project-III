@@ -10,13 +10,14 @@ on:
 env:
   CI: false
 
-defaults:
-  run:
-    working-directory: Backend
+
 jobs:
   build:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: BackEnd
 
     steps:
       - name: checkout backend branch
