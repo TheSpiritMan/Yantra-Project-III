@@ -45,7 +45,7 @@ jobs:
         if: github.event_name == 'push'
         with:
           context: ./BackEnd
-          file: ./Backend/Dockerfile
+          file: ./BackEnd/Dockerfile
           push: false
           tags: thespiritman/yantra-backend:backend
 
