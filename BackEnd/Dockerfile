@@ -1,7 +1,6 @@
-FROM python:3.11.4-alpine3.18 AS base
+FROM python:3
 WORKDIR /app
-RUN apk add --update make automake gcc g++ subversion python3-dev qt5-qtbase-dev gfortran openblas openblas-dev lapack
-# RUN pip install virtualenv
-# RUN virtualenv venv && source venv/bin/activate
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
+COPY . ./
+CMD ["python", "yantra_backend/manage.py", "runserver 8000"]
