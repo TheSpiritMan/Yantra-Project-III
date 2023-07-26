@@ -44,9 +44,9 @@ jobs:
         uses: docker/build-push-action@v4
         if: github.event_name == 'push'
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
+          context: ./BackEnd
+          file: ./Backend/Dockerfile
+          push: false
           tags: thespiritman/yantra-backend:backend
 
       - name: Build Docker image
