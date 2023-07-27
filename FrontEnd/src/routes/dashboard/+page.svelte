@@ -77,6 +77,7 @@
 		<Table shadow striped>
 			<TableHead>
 				<TableHeadCell>File Id</TableHeadCell>
+				<TableHeadCell>Date</TableHeadCell>
 				<TableHeadCell>Fraud Count</TableHeadCell>
 				<TableHeadCell>Genuine Count</TableHeadCell>
 				<TableHeadCell>ACTION</TableHeadCell>
@@ -87,6 +88,9 @@
 					<TableBodyCell
 						>{$fileUploadResponseStore?.fileUploadResponse
 							?.fileId}</TableBodyCell
+					>
+					<TableBodyCell
+						>{$fileUploadResponseStore?.fileUploadResponse?.date}</TableBodyCell
 					>
 					<TableBodyCell
 						>{$fileUploadResponseStore?.fileUploadResponse

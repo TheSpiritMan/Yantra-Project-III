@@ -4,6 +4,7 @@
 	import { fileUploadResponseStore } from "$lib/store/ai-processed-data";
 	import { toastStore } from "$lib/store/toast";
 	import { Button, Dropzone, Heading } from "flowbite-svelte";
+	import dayjs from "dayjs";
 
 	let isDragged = false;
 	let file: File | null = null;
@@ -66,6 +67,7 @@
 				genuineCount: response?.counts?.["1"],
 				fileId: response?.["File ID"],
 				message: response?.message,
+				date: dayjs(response?.date)?.format("YYYY MMMM DD"),
 			};
 			goto("/dashboard");
 		}

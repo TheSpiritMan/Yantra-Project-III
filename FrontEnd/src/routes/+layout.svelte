@@ -177,7 +177,10 @@
 							on:click={() =>
 								(showUserAvatarDropdown = !showUserAvatarDropdown)}
 						>
-							<Avatar border></Avatar>
+							<Avatar border
+								>{$userStore.me?.first_name?.[0]}{$userStore?.me
+									?.last_name?.[0]}</Avatar
+							>
 							<div class="text-lg font-bold">
 								{`${$userStore.me?.first_name} ${$userStore.me?.last_name}`}
 							</div>

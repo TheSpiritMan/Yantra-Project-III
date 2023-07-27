@@ -2,6 +2,7 @@
 	import { API } from "$lib/helper";
 	import { fileUploadResponseStore } from "$lib/store/ai-processed-data";
 	import { toastStore } from "$lib/store/toast";
+	import dayjs from "dayjs";
 	import {
 		Button,
 		Modal,
@@ -25,6 +26,12 @@
 		console.log("response", response);
 		if (response && status === 200) {
 			allFiles = response;
+			allFiles = response?.map((eachFile) => ({
+				...eachFile,
+				csv_file: eachFile?.csv_file?.replace(/\/csv_files\//, ""),
+				result_file: eachFile?.result_file?.replace(/\/result_files\//, ""),
+				date: dayjs(eachFile?.date)?.format("YYYY MMMM DD"),
+			}));
 			console.log("files successfully fetched...");
 
 			// console.log("result_file", allFiles?.[0]?.result_file);
@@ -140,6 +147,7 @@
 		<Table shadow striped>
 			<TableHead>
 				<TableHeadCell>id</TableHeadCell>
+				<TableHeadCell>Date</TableHeadCell>
 				<TableHeadCell>uploaded file</TableHeadCell>
 				<TableHeadCell>result file</TableHeadCell>
 				<TableHeadCell>ACTION</TableHeadCell>
@@ -149,6 +157,7 @@
 				{#each allFiles as eachFile}
 					<TableBodyRow>
 						<TableBodyCell>{eachFile?.id}</TableBodyCell>
+						<TableBodyCell>{eachFile?.date}</TableBodyCell>
 						<TableBodyCell>{eachFile?.csv_file}</TableBodyCell>
 						<TableBodyCell>{eachFile?.result_file}</TableBodyCell>
 

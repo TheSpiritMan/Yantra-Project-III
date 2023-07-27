@@ -53,7 +53,7 @@
 			isLoading = false;
 			toastStore.showToast(
 				"failure",
-				typeof response?.message === "object" ? "invalid otp" : "otp expired1",
+				typeof response?.message === "object" ? "invalid otp" : "otp expired",
 				true
 			);
 		}
